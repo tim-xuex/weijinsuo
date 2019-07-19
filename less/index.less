@@ -1,0 +1,498 @@
+// 1.引入 变量的less文件
+@import 'variables.less';
+// 引入函数的less文件
+@import 'maxin.less';
+
+
+//1. 头部样式
+// 
+#header{
+    // 1.4给头部加下边框
+    border-bottom: 1px solid @border-color;
+    .row{
+        // 1.1 一般来说，如果要选择标签选择器带> 表示子代 一般标签选择器用>比较好，以防误杀
+        >div{
+            border-right: 1px solid @border-color;
+           line-height: 40px;
+            line-height: center;
+            font-size: 12px;
+            //1.2 给最后一个元素的右边框去掉
+            &:list-child{
+                border-right: none;
+            }
+            a{ 
+                // 1.3 a标签加颜色和去除下边框
+                // color: @a-color;
+                // text-decoration: none;
+                img{
+                    display: none;
+                    // 为了提升层级，因为图片被盖住了，这样可以看得见图片，
+                    z-index: 1000;
+                    position: absolute;
+                    left: 50%;
+                    transform:translateX(-50%);
+                }
+                &:hover{
+                   img{
+                        display: block;
+                   }
+
+                }
+            }
+        }
+    }
+}
+
+// 2.导航条区域的样式
+
+// 导航条分两个区域：1、导航的头部 2.导航条身体
+#nav{
+   
+    // 2.3 设置背景颜色为白色
+    background-color: #fff;
+    // 设置跟轮播图元素的距离 
+    margin-bottom:0;
+    // 添加的吸顶效果导航条没有贴在最上面
+       top:0;
+    //    提升层级  不然导航条覆盖不了别的内容
+       z-index: 999;
+    //  由于添加了固定定位会没有默认100%的宽度  需要手动添加一下
+    width: 100%;
+    
+    // 导航头部样式
+    .navbar-header{    
+        // 移动端按钮的样式
+        .navbar-toggle{
+            // 2.6设置按钮离上边框的距离
+            //然后再去前面html中设置xs隐藏
+            margin-top: 23px;
+        }
+        // 头部里面的品牌logo容器
+        .navbar-brand{
+            // 2.1设置a标签容器的为80
+            height: 80px;
+            // 2.2因为a有上下15px的padding 内容高度只有50Px 行高就设置50px
+            line-height: 50px;
+            >i{
+                // 2.3设置文字大小和图标颜色
+                font-size: 30px;
+                // 2.4 改图标颜色
+                &.icon-icon{
+                    color: @main-color;
+                }
+                &.icon-logo{
+                    color: #333;
+                }
+            }
+        }
+    }
+
+
+    //2. 导航条身体的样式
+     // 导航条身体里的UL
+    .navbar-nav{
+        //navbar-nav下面的li标签
+        >li{
+           // 下面的a标签   标签前面要加> 表示是navbar-nav下面的子元素
+            >a{
+                // 2.1 设置navbar-nav 下面所有的A标签的高。让它们居中，跟微金所图标对齐
+                height: 80px;
+                line-height: 50px;
+                // 2.5设置所有a标签移入文字下面有边条
+                &:hover{
+                    border-bottom: 1px solid @main-color;
+                }
+            } 
+            &.active{
+          >a{
+                // 2.2 设置li标签中的子元素A标签的背景色为白色
+            background-color: #fff;
+            // 2.4 设置下边框的颜色和边条大小以及实线
+            border-bottom: 2px solid @main-color;
+
+          }
+        }
+        }
+        
+    }
+  
+}
+
+
+// 3.设置轮播图的样式 设置完样式了之后要在不同的屏幕上显示不同尺寸的图片，所以要在样式里面设置大屏幕尺寸隐藏
+#slide{
+    //3.1  这个是大图片的样式
+    .large-image {
+        // 因为a标签是没有高度的，要转块级元素，不然看不到图片
+        display: block;
+        height: 410px;
+       background-position: center center;
+    }
+    // 3.2 这个是小图片的样式
+    .small-image{
+        display: block;
+        img{
+            width: 100%;
+
+        }
+    }
+}
+
+// 4. 特色介绍区域样式
+
+#featrue{
+//   4.1 父子元素之间的距离用padding
+// 上下为40 左右为零
+    padding: 40px 0;
+   .row{
+    //4.2 设置row里面的div 上下边距
+        >div{
+            // 兄弟之间用margin
+            margin-bottom: 10px;
+            .media{
+                  >a{
+                      // 4.3 设置a标签的文字颜色和去掉下划线
+                    color: @a-color;
+                    text-decoration: none;
+                    // 4.4 设置移入变成主题色（红色）
+                    &:hover{
+                        color: @main-color;
+                        
+                    }
+                   }
+                // 4.5 如果需要给手机单独修改样式  单独使用媒体查询修改手机上的样式
+                //    大于等于768的时候 图片和文字居中
+                @media (max-width:768px) {
+                    >a{
+                        // 4.6 先设置A标签里面DIV的宽度(因为DIV是跟父元素一样宽的，没有办法居中)
+                        width: 220px;
+                        // 4.8 要设置成块元素 行内元素设置不IAO宽高
+                        display: block;
+                        // 4.7 margin 上下为零 左右居中
+                        margin: 0 auto;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+// 5.立即预约区域 样式
+#booking{
+    // 5.2 设置上下边框
+    border-top: 1px solid @border-color;
+    border-bottom: 1px solid @border-color;
+    // 5.3设置上下边框距离20 左右为零
+    padding: 20px 0;
+    
+}
+
+// 6.产品推荐区域样式
+
+#products{
+    // 6.1 设置父子元素距离 用padding
+    padding: 40px 0;
+    // 6.2 设置背景颜色为灰色
+    background-color:#eee;
+    // 6.0 标签标题的样式
+    // 6.3 设置li标签中带有的 active 的 A标签背景颜色
+    .ul-wrapper{
+             //实现移动端滚动条：1. 给父元素添加一个局部滚动条
+                overflow: auto;
+        .nav-tabs{
+            // 实现移动端滚动条：2.给子元素一个宽度，整个宽度要比父元素宽 这样的话够放在一行，就能实现必要的滚动
+            width: 600px;
+        >li{
+            &.active{
+                >a{
+                    // 6.4 值为 transparent 代表透明  子元素透明就和父元素的颜色一样了
+                    background-color: transparent;
+                    // 6.5 边框的颜色也为透明
+                    border-color: transparent;
+                    // 6.6 设置默认的下边框：颜色、边框大小、实线
+                    border-bottom: 2px solid @main-color; 
+                    // 6.9.1 设置active 的时候 有下边框 下边框为红色、实线、边框大小1px
+                    // 也就是被选中的li下面的a标签的hover边框颜色
+                    &:hover{
+                        border-bottom: 2px solid @main-color;
+                    }
+
+                }
+            }
+            
+            >a{
+                // 6.7 设置所有的A标签的背景颜色为
+               color:@a-color;
+               // 6.8 设置所有A标签字体大小
+               font-size: 16px;
+                // 6.9 hover的时候要把下面的边框设置为透明
+                &:hover{
+                    border-color: transparent;
+                }
+
+                
+            }
+        }
+    }
+    }
+    
+    // 7.0 标签页内容的样式
+.tab-content{
+    .tab-pane{
+        // 出现栅格嵌套的时候，栅格也要带箭头 这样可以确保不会选到后面的栅格
+        >.row{
+            >div{
+                // 7.1 设置兄弟元素的距离  兄弟元素用margin
+                margin-top: 20px;
+                
+               .product{
+                   background-color: #fff;
+                   // 7.2 给子元素设置伸缩布局  因为屏幕的大小在变化，左边的盒子也在变化，右边的盒子是固定的
+                   display: flex;
+                   //因为左上角的字体图标会跑，位置不好调，这样的话就相对于父元素定位会好一些
+                        position: relative;
+                     &.red{
+                         background-color: @main-color;
+                         color: #eee;
+                        //加字体图标用伪元素来加
+                        &::before{
+                            // 指定图标的编码和字体（字体图标本身就是由这两个对象组成的）
+                                content: "\e915";
+                                font-family: 'itcast';
+                                // 让他不占位子，因为把文字往右边挤了
+                                position: absolute;
+                                font-size: 30px;
+                                top:-6px;
+                                left:0px;
+                        }
+                     }
+                  
+
+                   .product-left{
+                    //    7.3 占盒子剩下的宽度和高度
+                        flex: 1;
+                        height: 160px;
+                        // 7.5设置标题文字居中
+                        >h4{
+                            text-align: center;
+                            //  行高加大一点 这样距离上面的距离就远一点
+                                    line-height: 30px
+                            
+                        }
+                        >.row{
+                            // 因为roe自带了margin -15px 造成了拉伸，跟边框没有边距，把 margin的-15px设置为零
+                            margin: 0px;
+                              >div{
+                                  margin-bottom: 10px;
+                                //单独给中屏幕的时候去掉列的左右padding 让列的内容大一点能够放下文字
+                                @media(min-width:992px) and (max-width:1199px){
+										padding: 0;
+									}
+                                //  ipone5以下单独处理
+                                @media(max-width:320px){
+                                    padding: 0 10px;
+                                }
+                                 >p{
+                                    
+                                       // 7.6 设置上下边框的margin为0
+                                  margin-bottom: 0;
+                                 }
+                                //  7.6.1 给2和4这两个DIV往右靠一点
+                                &:nth-child(2n){
+                                    text-align: right;
+                                }
+                              } 
+                                
+                            }
+                    }
+                    .product-right{
+                        // 7.4 设置盒子宽高
+                        width: 120px;
+                        height: 160px;
+                        // 7.4.1 设置左边框
+                        border-left: 1px dashed @border-color;
+                        // 7.7 因为两个P标签需要居中，有两种方法：1.设置padding 这个需要算两个P标签的大小 用总高度来减  2.设置伸缩布局 设置主轴为Y轴 子元素主轴和副轴都居中
+                            display: flex;
+                            flex-direction: column;
+                            justify-content:center;
+                            align-items: center;
+                            // 设置定位好让伪元素的圆圈能在左上角，子元素相对于这里定位
+                            position: relative;
+
+                        >p{
+                            //7.5 设置兄弟元素的margin为零
+                            margin-bottom: 0px;
+                            // 行高只能让单行文本居中
+                            // line-height: 160px;
+                            strong{
+                                // 7.6 设置strong标签里的文字大小
+                                font-size: 30px;
+                            }
+                        }
+                        // 7.7给右边的盒子加两个伪元素，一前一后 定位在左上角
+                        &::before,&::after{
+                            content: '';
+                            // 7.7.1 宽高给16
+                            width: 16px;
+                            height: 16px;
+                            // 7.7.2 切圆角
+                            border-radius: 50%;
+                            // 圆角的颜色根父元素的颜色一样
+                            background-color:#eee;
+                            // 7.7.3 设置定位
+                            position: absolute;
+                            left: -8px;
+
+
+                        }
+                        &::before{
+                            // 7.8 设置前面圆点位置
+								top: -8px;
+							}
+							&::after{
+                                // 7.8。1 设置后面圆点位置
+								bottom: -8px;
+							}
+                    }
+                    .tooltips{
+                        // 7.10
+                         text-align: center;
+                        //7.11 因为把8这个数字挤下去了，所以要定位，然后不占位置
+                            position: absolute;
+                            // 7.12宽给100% 居中有效果
+                            width: 100%;
+                            top: 20px;
+
+                            
+                        //7.9 设置工具类插件
+                        .tip-red{
+                            // 给子元素加padding把框框撑开
+                            padding: 5px;
+                            border: 1px solid red;
+                            color: @main-color
+                            
+                            
+                            
+                        }
+                        .tip-green{
+                            border: 1px solid green;
+                            color: green;
+                            // 给子元素加padding把框框撑开
+                            padding: 5px;
+                        }
+                    }
+               }
+            }
+        }
+    }
+}
+}
+
+// 7. 新闻区域样式
+#news{
+    // 7.1 给子元素距离上面一些距离 父子元素加padding 上下45 左右0
+    padding: 45px 0px;
+    .row{
+        >div{
+            position: relative;
+            >h4{
+                border-bottom: 1px dashed @border-color;
+            //7.2 单行操作可以用行高,设置文字的行高和文字居中
+                line-height: 40px;
+                text-align: center;
+
+                // 7.3用设置伪元素来设置辩题旁边的小圆点
+                &:after{
+                    content: "";
+                    // 转成块级元素 不然设置不了宽高，伪元素是行内元素
+                    display: block;
+                    width: 10px;
+                    height: 10px;
+                    border: 1px solid @a-color;
+                    border-radius: 50%;
+                    position: absolute;
+                    right:3px;
+                    bottom:5px;
+                }
+            }
+
+        }
+        // 标签页标题样式
+        .nav-tabs{
+            padding-left: 2px;
+            border-bottom: 0px;
+            >li{    
+                    /* 针对小和超小屏幕让新闻的图标 每个等比例划分 */
+                    @media(max-width:992px){
+                        width: 25%;
+                    }
+               >a{
+                   border-radius: 50%;
+                   color: #ccc;
+                   margin:0 auto 20px;
+                   width: 60px;
+                   &:hover{
+                       background-color: @main-color;
+                   }
+                   >i{
+                       font-size: 30px;
+                   }
+               }
+               &.active{
+                   >a{
+                     background-color: @main-color;
+                   }
+                  
+               }
+            }
+        }
+        // 标签页内容
+        .tab-content{
+            .tab-pane{
+                >ul{
+                    >li{
+                        // 把内容行与行之间撑大一点,用margin-top的话第一个元素根上面也是要有距离的，设置行高只是内容与内容的距离
+                        // margin-top: 20px;
+                        line-height: 40px;
+                        // 把前面的小圆点去掉
+                        list-style: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+// 合作伙伴样式
+#partner{
+    .container{
+        >h3{
+            text-align: center;
+        }
+        >ul{
+            display: flex;
+            padding-left: 0px;
+
+             >li{
+                flex: 1;
+                list-style: none;
+            >a{
+                color: @a-color;
+                text-decoration: none;
+                &:hover{
+                    color: @main-color;
+                }
+                >i{
+                    font-size: 60px;
+                    // 在移动端的时候，下面的字体图标要把文字变小
+                    @media(max-width:768px){
+                        font-size: 30px;
+                    }
+                }
+            }
+        }
+        }
+    }
+}
